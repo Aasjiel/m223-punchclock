@@ -15,29 +15,28 @@ import javax.ws.rs.core.MediaType;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
-import ch.zli.m223.model.Entry;
-import ch.zli.m223.service.EntryService;
+// import ch.zli.m223.model.Tag;
+import ch.zli.m223.service.TagService;
 
-@Path("/entries")
-@Tag(name = "Entries", description = "Handling of entries")
-public class EntryController {
-
+@Path("/tags")
+@Tag(name = "Tags", description = "Handling of tags")
+public class TagController {
     @Inject
-    EntryService entryService;
+    TagService tagService;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Operation(summary = "Index all Entries.", description = "Returns a list of all entries.")
-    public List<Entry> index() {
-        return entryService.findAll();
+    @Operation(summary = "Index all tags.", description = "Returns a list of all tags.")
+    public List<ch.zli.m223.model.Tag> index() {
+        return tagService.findAll();
     }
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @Operation(summary = "Creates a new entry.", description = "Creates a new entry and returns the newly added entry.")
-    public Entry create(Entry entry) {
-       return entryService.createEntry(entry);
+    public ch.zli.m223.model.Tag create(ch.zli.m223.model.Tag tag) {
+       return tagService.createEntry(tag);
     }
 
     @DELETE
@@ -45,14 +44,13 @@ public class EntryController {
         summary = "Deletes an Entry",
         description = "Deletes a specified Entry and returns not a single thing"
     )
-    
     @Path("/{Id}")
     public void delete(Long Id) {
-        entryService.deleteEntry(Id);
+        tagService.deleteEntry(Id);
     }
 
     @PUT
-    public void update(Entry entry){
-        entryService.update(entry);
+    public void update(ch.zli.m223.model.Tag tag){
+        tagService.update(tag);
     }
 }
